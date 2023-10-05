@@ -13,10 +13,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
-
-    - name: Change to the project directory
-      run: cd To-do-container
-    
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag himanshuwappnet/private:$(date +%s)
+    - uses: actions/checkout@v4
+    - run: |
+        cd To-do-container
+        docker build . --file Dockerfile --tag himanshuwappnet/private:$(date +%s)
+    # - name: Build the Docker image
+    #   run: docker build . --file Dockerfile --tag himanshuwappnet/private:$(date +%s)
