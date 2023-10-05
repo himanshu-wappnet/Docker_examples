@@ -7,15 +7,29 @@ on:
     branches: [ "main" ]
 
 jobs:
-
-  build:
-
+  build_and_push_to_docker_hub:
+    name: Push Docker image to Docker Hub
     runs-on: ubuntu-latest
+    env:
+      IMAGE_TAG: ${{ github.run_number }}
 
     steps:
-    - uses: actions/checkout@v4
-    - run: |
-        cd To-do-container
-        docker build . --file Dockerfile --tag himanshuwappnet/private:$(date +%s)
-    # - name: Build the Docker image
-    #   run: docker build . --file Dockerfile --tag himanshuwappnet/private:$(date +%s)
+    - name: Extract metadata (tags, labels) for Docker
+      id: meta
+      uses: docker/metadata-action@v3
+      with:
+        images: himanshuwappnet/private
+
+    - name: Set timestamp environment variable
+      id: set_tag
+      run: echo "IMAGE_TAG=$(date +%s)" >> $GITHUB_ENV
+
+    - name: Build and push Docker image
+      id: docker_build
+      uses: docker/build-push-action@v2
+      with:
+         context: ./To-do-container
+         file: ./To-do-container/Dockerfile
+         push: true
+         tags: himanshuwappnet/private:${{ env.IMAGE_TAG }}
+         labels: ${{ steps.meta.outputs.labels }}
