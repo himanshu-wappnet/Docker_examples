@@ -15,7 +15,7 @@ jobs:
 
     steps:
     - name: Print Current Working Directory
-      run: pwd
+      run: pwd && ls -la
 
     - name: Extract metadata (tags, labels) for Docker
       id: meta
