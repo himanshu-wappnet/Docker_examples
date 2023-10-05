@@ -16,6 +16,9 @@ jobs:
       IMAGE_TAG: ${{ github.run_number }}
 
     steps:
+    - name: Check out the repo
+      uses: actions/checkout@v4
+    
     - name: Print Current Working Directory
       run: ls 
 
