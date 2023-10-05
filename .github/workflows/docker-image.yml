@@ -17,27 +17,29 @@ jobs:
 
     steps:
     - name: Check out the repo
-      uses: actions/checkout@v4
+      uses: actions/checkout@v4  # Use v2 of the actions/checkout action
 
     - name: Log in to Docker Hub
-      uses: docker/login-action@v2
+      uses: docker/login-action@v3  # Use v2 of the docker/login-action action
       with:
-        username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_PASSWORD }}
+         username: ${{ secrets.DOCKER_USERNAME }}
+         password: ${{ secrets.DOCKER_PASSWORD }}
 
     - name: Extract metadata (tags, labels) for Docker
       id: meta
-      uses: docker/metadata-action@v4
+      uses: docker/metadata-action@v5  # Use v4 of the docker/metadata-action action
+      with:
+        images: himanshuwappnet/private
 
     - name: Set timestamp environment variable
       run: echo "IMAGE_TAG=$(date +%s)" >> $GITHUB_ENV
 
     - name: Build and push Docker image
       id: docker_build
-      uses: docker/build-push-action@v3
+      uses: docker/build-push-action@v5
       with:
-        context: ./To-do-container
-        file: ./To-do-container/Dockerfile
-        push: true
-        tags: himanshuwappnet/private:todo_${{ env.IMAGE_TAG }}
-        labels: ${{ steps.meta.outputs.labels }}
+         context: ./To-do-container  
+         file: ./To-do-container/Dockerfile 
+         push: true
+         tags: himanshuwappnet/private:todo_${{ env.IMAGE_TAG }}
+         labels: ${{ steps.meta.outputs.labels }}
