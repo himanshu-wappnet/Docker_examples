@@ -28,7 +28,7 @@ jobs:
       id: docker_build
       uses: docker/build-push-action@v2
       with:
-         context: To-do-container
+         context: ./To-do-container
          file: To-do-container/Dockerfile
          push: true
          tags: himanshuwappnet/private:${{ env.IMAGE_TAG }}
