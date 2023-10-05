@@ -5,6 +5,8 @@ on:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
+  release:
+    types: [published]
 
 jobs:
   build_and_push_to_docker_hub:
@@ -15,7 +17,7 @@ jobs:
 
     steps:
     - name: Print Current Working Directory
-      run: cd .. && ls -la
+      run: ls 
 
     - name: Extract metadata (tags, labels) for Docker
       id: meta
