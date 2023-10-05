@@ -42,5 +42,5 @@ jobs:
          context: ./To-do-container  
          file: ./To-do-container/Dockerfile 
          push: true
-         tags: himanshuwappnet/private:${{ env.IMAGE_TAG }}
+         tags: himanshuwappnet/private:todo_${{ env.IMAGE_TAG }}
          labels: ${{ steps.meta.outputs.labels }}
